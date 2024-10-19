@@ -18,7 +18,7 @@ import pk.ajneb97.utils.OtherUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventoryEditActionsManager {
+public class    InventoryEditActionsManager {
 
     private PlayerKits2 plugin;
     private InventoryEditManager inventoryEditManager;

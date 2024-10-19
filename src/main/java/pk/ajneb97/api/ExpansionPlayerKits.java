@@ -25,7 +25,7 @@ public class ExpansionPlayerKits extends PlaceholderExpansion {
 
     @Override
     public String getAuthor(){
-        return "Ajneb97";
+        return "Infnox";
     }
 
     @Override
