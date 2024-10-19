@@ -1,32 +1,41 @@
 package pk.ajneb97.managers;
 
-
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import pk.ajneb97.model.internal.UpdateCheckerResult;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Scanner;
 
 public class UpdateCheckerManager {
 
-    private String version;
+    private String currentVersion;
     private String latestVersion;
+    private static final String GITHUB_API_URL = "https://api.github.com/InfLabss/PlayerKits2-Optimized/releases";
 
-    public UpdateCheckerManager(String version){
-        this.version = version;
+    public UpdateCheckerManager(String currentVersion) {
+        this.currentVersion = currentVersion;
     }
 
-    public UpdateCheckerResult check(){
+    public UpdateCheckerResult check() {
         try {
-            HttpURLConnection con = (HttpURLConnection) new URL(
-                    "https://api.spigotmc.org/legacy/update.php?resource=112616").openConnection();
-            int timed_out = 1500;
-            con.setConnectTimeout(timed_out);
-            con.setReadTimeout(timed_out);
-            latestVersion = new BufferedReader(new InputStreamReader(con.getInputStream())).readLine();
-            if (latestVersion.length() <= 7) {
-                if(!version.equals(latestVersion)){
+            URL url = new URL(GITHUB_API_URL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
+
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream inputStream = connection.getInputStream();
+                String response = new Scanner(inputStream, "UTF-8").useDelimiter("\\A").next();
+                inputStream.close();
+
+                JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+                latestVersion = jsonObject.get("tag_name").getAsString().replace("v", "");
+
+                if (!currentVersion.equals(latestVersion)) {
                     return UpdateCheckerResult.noErrors(latestVersion);
                 }
             }

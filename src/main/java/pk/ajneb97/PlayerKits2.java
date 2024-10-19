@@ -85,7 +85,8 @@ public class PlayerKits2 extends JavaPlugin {
         updateMessage(updateCheckerManager.check());
 
         Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage(prefix + "&eHas been enabled! &fVersion: " + version));
-        Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage(prefix + "&eThanks for using my plugin!   &f~Ajneb97"));
+        Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage(prefix + "&eThis is a optimized version with more features of PlayerKits2 by ~Infnoxx"));
+        Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage(prefix + "&eOrignal credits to ~Ajneb97 "));
     }
 
     private void postConfigSetup() {
@@ -221,10 +222,12 @@ public class PlayerKits2 extends JavaPlugin {
             String latestVersion = result.getLatestVersion();
             if (latestVersion != null) {
                 Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage("&cThere is a new version available. &e(&7" + latestVersion + "&e)"));
-                Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage("&cYou can download it at: &fhttps://modrinth.com/plugin/playerkits-2"));
+                Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage("&cYou can download it at: &fhttps://github.com/OWNER/REPO/releases/latest"));
+            } else {
+                Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage(prefix + "&aYou are running the latest version."));
             }
         } else {
-            Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage(prefix + "&cError while checking update."));
+            Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage(prefix + "&cError while checking for updates."));
         }
     }
 }
